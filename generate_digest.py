@@ -18,6 +18,7 @@ Usage:
 import json
 import os
 from datetime import datetime, timedelta
+from collections import Counter
 
 import requests
 
@@ -44,6 +45,15 @@ def format_thread_line(t, num):
     sender = t["last_from"].split("<")[0].strip() or t["last_from"]
     return f"{num}. *{t['subject']}* — from {sender} ({day_str}, {labels})"
 
+def count_labels(threads):
+    counter = Counter()
+    for t in threads:
+        for label in t["labels"]:
+            counter[label] += 1
+    if not counter:
+        return {}
+    return dict(counter.most_common())
+
 def get_date_range_str(days_back=DAYS_BACK):
     end = datetime.now()
     start = end - timedelta(days=days_back)
@@ -61,13 +71,13 @@ def build_digest_text(threads, days_back):
         grouped.setdefault(t["category"], []).append(t)
 
     date_range = get_date_range_str(days_back)
-    lines = [f":email: *WIC's Weekly Inbox Summary* — ({date_range})\nNEEDS REVIEW: {len(actionable)} email(s)"]
+    lines = [f":email: *WIC's Weekly Inbox Summary* — ({date_range})\nNEEDS REVIEW: {len(actionable)} email(s)\n"]
 
     for cat in CATEGORY_ORDER:
         items = grouped.get(cat, [])
         if not items:
             continue
-        lines.append(CATEGORY_HEADERS[cat])
+        lines.append(f"{CATEGORY_HEADERS[cat]}: {len(items)} Item(s)")
         for i, t in enumerate(items, start=1):
             lines.append(format_thread_line(t, i))
         lines.append("")  # blank line between sections
