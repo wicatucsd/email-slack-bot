@@ -174,9 +174,13 @@ def main():
     handled_count = len(results) - len(actionable)
     print(f"\n({handled_count} handled thread(s) omitted from the list above)")
 
+    output = {
+        "days_back": DAYS_BACK,
+        "threads": results,
+    }
     # Full results (including handled) still saved for the digest step
     with open("threads_summary.json", "w") as f:
-        json.dump(results, f, indent=2)
+        json.dump(output, f, indent=2)
     print("Saved full results to threads_summary.json")
 
 

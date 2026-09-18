@@ -17,35 +17,39 @@ Usage:
 
 import json
 import os
+from datetime import datetime, timedelta
 
 import requests
 
 SUMMARY_FILE = "threads_summary.json"
 
 CATEGORY_HEADERS = {
-    "needs_label": ":label: *Needs an owner assigned* (no committee label)",
-    "needs_first_reply": ":envelope: *Needs a first reply* (unread)",
-    "awaiting_reply": ":hourglass_flowing_sand: *Awaiting reply* (read, not answered)",
+    "needs_label": ":label: *Missing Label*",
+    "needs_first_reply": ":envelope: *Unread*",
+    "awaiting_reply": ":hourglass_flowing_sand: *Awaiting Reply*",
 }
 CATEGORY_ORDER = ["needs_label", "needs_first_reply", "awaiting_reply"]
 SLACK_WEBHOOK_FILE = "slack_api_key.json"
-
+DAYS_BACK = 7
 
 def load_threads():
     with open(SUMMARY_FILE) as f:
-        return json.load(f)
+        data = json.load(f)
+    return data["threads"], data["days_back"]
 
-
-def format_thread_line(t):
+def format_thread_line(t, num):
     days = t["days_waiting"]
     day_str = "today" if days == 0 else f"{days}d"
     labels = ", ".join(t["labels"]) if t["labels"] else "no label"
-    # Trim a full "Name <email@domain>" sender down to just the name/email
     sender = t["last_from"].split("<")[0].strip() or t["last_from"]
-    return f"- *{t['subject']}* — from {sender} ({day_str}, {labels})"
+    return f"{num}. *{t['subject']}* — from {sender} ({day_str}, {labels})"
 
+def get_date_range_str(days_back=DAYS_BACK):
+    end = datetime.now()
+    start = end - timedelta(days=days_back)
+    return f"{start.strftime('%b %d')} to {end.strftime('%b %d')}"
 
-def build_digest_text(threads):
+def build_digest_text(threads, days_back):
     # Handled threads are noise for a "who needs to act" digest
     actionable = [t for t in threads if t["category"] != "handled"]
 
@@ -56,15 +60,16 @@ def build_digest_text(threads):
     for t in actionable:
         grouped.setdefault(t["category"], []).append(t)
 
-    lines = [f":email: *WIC Inbox Digest* — {len(actionable)} thread(s) need attention\n"]
+    date_range = get_date_range_str(days_back)
+    lines = [f":email: *WIC's Weekly Inbox Summary* — ({date_range})\nNEEDS REVIEW: {len(actionable)} email(s)"]
 
     for cat in CATEGORY_ORDER:
         items = grouped.get(cat, [])
         if not items:
             continue
         lines.append(CATEGORY_HEADERS[cat])
-        for t in items:
-            lines.append(format_thread_line(t))
+        for i, t in enumerate(items, start=1):
+            lines.append(format_thread_line(t, i))
         lines.append("")  # blank line between sections
 
     return "\n".join(lines).strip()
@@ -82,8 +87,8 @@ def post_to_slack(text):
 
 
 def main():
-    threads = load_threads()
-    digest = build_digest_text(threads)
+    threads, days_back = load_threads()
+    digest = build_digest_text(threads, days_back)
 
     print("----- Generated digest -----")
     print(digest)
