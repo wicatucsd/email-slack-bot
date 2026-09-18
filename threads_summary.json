@@ -22,6 +22,16 @@
       "reply_status": "awaiting_reply"
     },
     {
+      "thread_id": "1a0a06f466384810",
+      "subject": "You're Invited to Apply~Women's Center Affiliated Student Organization Program",
+      "last_from": "\"Aksamit, Hannah\" <haksamit@ucsd.edu>",
+      "category": "needs_label",
+      "days_waiting": 4,
+      "message_count": 1,
+      "labels": [],
+      "reply_status": "needs_first_reply"
+    },
+    {
       "thread_id": "1a0a0015026c8833",
       "subject": "Translate anything, your way",
       "last_from": "ChatGPT <noreply@email.openai.com>",
@@ -110,16 +120,6 @@
       "message_count": 1,
       "labels": [],
       "reply_status": "awaiting_reply"
-    },
-    {
-      "thread_id": "1a0a06f466384810",
-      "subject": "You're Invited to Apply~Women's Center Affiliated Student Organization Program",
-      "last_from": "\"Aksamit, Hannah\" <haksamit@ucsd.edu>",
-      "category": "needs_label",
-      "days_waiting": 3,
-      "message_count": 1,
-      "labels": [],
-      "reply_status": "needs_first_reply"
     },
     {
       "thread_id": "1a09eeaa5517d873",
@@ -237,6 +237,18 @@
       "reply_status": "awaiting_reply"
     },
     {
+      "thread_id": "1a0a59564ea20f6a",
+      "subject": "Potential Fundraiser Opportunity with UCSD Shake Smart",
+      "last_from": "Stephanie Guevara <stguevara@ucsd.edu>",
+      "category": "awaiting_reply",
+      "days_waiting": 3,
+      "message_count": 1,
+      "labels": [
+        "2026-2027/vpf"
+      ],
+      "reply_status": "awaiting_reply"
+    },
+    {
       "thread_id": "1a0a16f140cd3379",
       "subject": "Out of Office Re: CSE Basement Lab Reservation Request",
       "last_from": "Cse Scheduling Jsoe <cse-scheduling@ucsd.edu>",
@@ -286,23 +298,11 @@
       "reply_status": "awaiting_reply"
     },
     {
-      "thread_id": "1a0a59564ea20f6a",
-      "subject": "Potential Fundraiser Opportunity with UCSD Shake Smart",
-      "last_from": "Stephanie Guevara <stguevara@ucsd.edu>",
+      "thread_id": "1a0aac2f0194eb61",
+      "subject": "Engineers on the Green Logistics",
+      "last_from": "TESC General Contact <contact@tescatucsd.org>",
       "category": "awaiting_reply",
       "days_waiting": 2,
-      "message_count": 1,
-      "labels": [
-        "2026-2027/vpf"
-      ],
-      "reply_status": "awaiting_reply"
-    },
-    {
-      "thread_id": "1a0ac04662957405",
-      "subject": "Information: Tabling at CSE Undergraduate Orientation Mixer",
-      "last_from": "Maha Haddad <mahaddad@ucsd.edu>",
-      "category": "awaiting_reply",
-      "days_waiting": 1,
       "message_count": 1,
       "labels": [
         "2026-2027/vpi"
@@ -310,9 +310,9 @@
       "reply_status": "awaiting_reply"
     },
     {
-      "thread_id": "1a0aac2f0194eb61",
-      "subject": "Engineers on the Green Logistics",
-      "last_from": "TESC General Contact <contact@tescatucsd.org>",
+      "thread_id": "1a0ac04662957405",
+      "subject": "Information: Tabling at CSE Undergraduate Orientation Mixer",
+      "last_from": "Maha Haddad <mahaddad@ucsd.edu>",
       "category": "awaiting_reply",
       "days_waiting": 1,
       "message_count": 1,

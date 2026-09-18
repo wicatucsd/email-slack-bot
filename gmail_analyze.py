@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
-TOKEN_FILE = "token.json"
+TOKEN_FILE = "keys/token.json"
 DAYS_BACK = 7
 
 # Gmail's built-in system labels we don't want to treat as "committee" labels
