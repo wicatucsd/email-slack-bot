@@ -28,7 +28,7 @@ CATEGORY_HEADERS = {
     "awaiting_reply": ":hourglass_flowing_sand: *Awaiting reply* (read, not answered)",
 }
 CATEGORY_ORDER = ["needs_label", "needs_first_reply", "awaiting_reply"]
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_FILE = "slack_api_key.json"
 
 
 def load_threads():
@@ -71,7 +71,10 @@ def build_digest_text(threads):
 
 
 def post_to_slack(text):
-    webhook_url = os.environ["SLACK_WEBHOOK_URL"]
+    with open(SLACK_WEBHOOK_FILE) as f:
+        config = json.load(f)
+    webhook_url = config["url"]
+
     payload = {"text": text}
     resp = requests.post(webhook_url, json=payload)
     resp.raise_for_status()
