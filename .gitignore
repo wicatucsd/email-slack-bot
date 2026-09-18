@@ -1,3 +1,4 @@
+keys/*
 client_secret*.json
 slack_api_key.json
 token.json
